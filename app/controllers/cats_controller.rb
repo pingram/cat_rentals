@@ -28,11 +28,21 @@ class CatsController < ApplicationController
   end
 
   def edit
-    @cat = Cat.find(cat_params)
+    @cat = Cat.find(params[:id])
     if @cat.nil?
       redirect_to cats_index
     else
       render :edit
+    end
+  end
+
+  def update
+    @cat = Cat.find(params[:id])
+    if @cat.update_attributes(cat_params)
+      redirect_to cat_url(@cat)
+    else
+      # flash[:errors] = @cat.errors.full_messages
+      redirect_to new_cat_url#, alert: "You're stuck here!"
     end
   end
 

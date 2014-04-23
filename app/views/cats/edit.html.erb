@@ -1,0 +1,48 @@
+<h2>Edit your cat!</h2>
+
+<form action=<%= cat_url(@cat) %> method="post">
+  <input type="hidden" name="_method" value="PATCH">
+  <label for="cat_name">First name</label>
+  <input name="cat[name]" id="cat_name" type="text" value=<%= @cat.name%>>
+  <br>
+
+  <label for="cat_age">Age</label>
+  <input name="cat[age]" id="cat_age" type="number" value=<%= @cat.age%>>
+  <br>
+
+  <label>Sex</label>
+  <div>
+
+    <input name="cat[sex]" id="cat_sex_m" type="radio" value="M"
+      <%= if @cat.sex == 'M'; "checked"; end %>>
+    <label for="cat_sex_m">Male</label>
+    <input name="cat[sex]" id="cat_sex_f" type="radio" value="F"
+    <%= if @cat.sex == 'F'; "checked"; end %>>
+    <label for="cat_sex_f">Female</label>
+  </div>
+  <br>
+
+
+  <label for="cat_color">Coat color</label>
+  <select name="cat[color]">
+    <option value="option"></option>
+    <option value="brown"
+      <%= if @cat.color == 'brown'; "selected"; end %>>Brown</option>
+    <option value="black"
+      <%= if @cat.color == 'black'; "selected"; end %>>Black</option>
+    <option value="white"
+      <%= if @cat.color == 'white'; "selected"; end %>>White</option>
+    <option value="tabby"
+      <%= if @cat.color == 'tabby'; "selected"; end %>>Tabby</option>
+    <option value="blue"
+      <%= if @cat.color == 'blue'; "selected"; end %>>Blue</option>
+  </select>
+  <br>
+
+  <label for="cat_birth_date">Birth date</label>
+  <!-- click on the date will launch a date picker -->
+  <input name="cat[birth_date]" id="cat_birth_date" type="date"
+   value="<%=@cat.birth_date %>"</input>
+
+  <input type="submit" value="Build my cat!">
+</form>

@@ -4,7 +4,7 @@
                 name: "Cat#{i}",
                 birth_date: birth_date,
                 age: (DateTime.now.year - birth_date.year),
-                color: %w(black, brown, white, tabby, blue).sample,
+                color: %w(black brown white tabby blue).sample,
                 sex: %w(M F).sample
               )
 end

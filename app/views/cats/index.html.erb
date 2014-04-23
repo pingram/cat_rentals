@@ -1,0 +1,9 @@
+<h2>This is the index!</h2>
+
+<h3>These are your cats</h3>
+
+<% @cats.each do |cat| %>
+  <%= cat.name %>
+  <%= link_to "Show", cat_url(cat) %>
+  <br>
+<% end %>

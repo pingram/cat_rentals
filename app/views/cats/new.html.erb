@@ -1,38 +1,6 @@
 <h2>Create a new cat!</h2>
 
 <form action="/cats" method="post">
-  <label for="cat_name">First name</label>
-  <input name="cat[name]" id="cat_name" type="text">
-  <br>
-
-  <label for="cat_age">Age</label>
-  <input name="cat[age]" id="cat_age" type="number">
-  <br>
-
-  <label>Sex</label>
-  <div>
-    <input name="cat[sex]" id="cat_sex_m" type="radio" value="M">
-    <label for="cat_sex_m">Male</label>
-    <input name="cat[sex]" id="cat_sex_f" type="radio" value="F">
-    <label for="cat_sex_f">Female</label>
-  </div>
-  <br>
-
-
-  <label for="cat_color">Coat color</label>
-  <select name="cat[color]">
-    <option value="option"></option>
-    <option value="brown">Brown</option>
-    <option value="black">Black</option>
-    <option value="white">White</option>
-    <option value="tabby">Tabby</option>
-    <option value="blue">Blue</option>
-  </select>
-  <br>
-
-  <label for="cat_birth_date">Birth date</label>
-  <!-- click on the date will launch a date picker -->
-  <input name="cat[birth_date]" id="cat_birth_date" type="date"></input>
-
+  <%= render partial: "form"%>
   <input type="submit" value="Build my cat!">
 </form>

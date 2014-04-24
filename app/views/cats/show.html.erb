@@ -31,6 +31,7 @@
     <%= cat_request.status %>
     <% if cat_request.status == "PENDING" %>
       <%= button_to "APPROVE", approve_cat_rental_request_url(cat_request), method: :patch %>
+      <%= button_to "DENY", deny_cat_rental_request_url(cat_request), method: :patch %>
     <% end %>
     <br>
 <% end %>

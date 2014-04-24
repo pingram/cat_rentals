@@ -50,9 +50,4 @@ class CatRentalRequest < ActiveRecord::Base
       errors[:start_date] << "the cat is already reserved for that date"
     end
   end
-
-  private
-  def crr_params
-    params.require(:cat_rental_request).permit(:cat_id, :start_date, :end_date, :status)
-  end
 end

@@ -9,13 +9,13 @@ class CatRentalRequestsController < ApplicationController
   def approve
     @cat_rr = CatRentalRequest.find(params[:id])
     @cat_rr.approve!
-    redirect_to cats_url
+    redirect_to :back
   end
 
   def deny
     @cat_rr = CatRentalRequest.find(params[:id])
     @cat_rr.deny!
-    redirect_to cats_url
+    redirect_to :back
   end
 
   def create

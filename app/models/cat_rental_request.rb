@@ -7,7 +7,15 @@ class CatRentalRequest < ActiveRecord::Base
 
   def approve!
     self.status = "APPROVED"
-    self.save
+    self.save!
+
+    #update all the pending requests that are no longer valid
+    CatRentalRequest.all.each do |crr|
+      unless crr.valid?
+        crr.status = "DENIED"
+        crr.save!
+      end
+    end
   end
 
   def overlapping_requests
@@ -32,7 +40,7 @@ class CatRentalRequest < ActiveRecord::Base
     new_oar = overlapping_requests.select do |request|
       request.status == "APPROVED" && request.id != self.id
     end
-    if new_oar.count > 0
+    if new_oar.count > 0 && self.status != "DENIED"
       errors[:start_date] << "the cat is already reserved for that date"
     end
   end

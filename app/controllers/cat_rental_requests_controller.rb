@@ -6,7 +6,17 @@ class CatRentalRequestsController < ApplicationController
     render :new
   end
 
+  def approve
+    @cat_rr = CatRentalRequest.find(params[:id])
+    @cat_rr.approve!
+    redirect_to cats_url
+  end
 
+  def deny
+    @cat_rr = CatRentalRequest.find(params[:id])
+    @cat_rr.deny!
+    redirect_to cats_url
+  end
 
   def create
     @cat_rental_request = CatRentalRequest.new(crf_params)

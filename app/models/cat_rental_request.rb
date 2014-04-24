@@ -9,7 +9,6 @@ class CatRentalRequest < ActiveRecord::Base
     ActiveRecord::Base.transaction do
       self.status = "APPROVED"
       self.save!
-
       #update all the pending requests that are no longer valid
       CatRentalRequest.all.each do |crr|
         unless crr.valid?
@@ -32,11 +31,12 @@ class CatRentalRequest < ActiveRecord::Base
         cat_rental_requests cr1
       WHERE
         (? BETWEEN cr1.start_date AND cr1.end_date OR
-        ? BETWEEN cr1.start_date AND cr1.end_date) AND
+        cr1.start_date BETWEEN ? AND ?) AND
         ? = cr1.cat_id
     SQL
 
     CatRentalRequest.find_by_sql([query,
+                                  self.start_date.to_s,
                                   self.start_date.to_s,
                                   self.end_date.to_s,
                                   self.cat_id])
@@ -49,5 +49,10 @@ class CatRentalRequest < ActiveRecord::Base
     if new_oar.count > 0 && self.status != "DENIED"
       errors[:start_date] << "the cat is already reserved for that date"
     end
+  end
+
+  private
+  def crr_params
+    params.require(:cat_rental_request).permit(:cat_id, :start_date, :end_date, :status)
   end
 end

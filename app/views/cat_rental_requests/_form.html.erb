@@ -1,0 +1,21 @@
+
+
+
+  <label for="cat_rental_request_cat_id">Cat ID</label>
+  <select name="cat_rental_request[cat_id]">
+    <option value="option"></option>
+    <% @all_cat_ids.each do |cat_id| %>
+    <option value="<%= cat_id %>"> <%= cat_id %> </option>
+    <% end %>
+  </select>
+  <br>
+
+  <label for="cat_rental_request_start_date">Start Date</label>
+  <!-- click on the date will launch a date picker -->
+    <input name="cat_rental_request[start_date]"   id="cat_rental_request_start_date" type="date"
+   value="<%=@cat_rental_request.start_date %>"</input>
+
+  <label for="cat_rental_request_end_date">End Date</label>
+  <!-- click on the date will launch a date picker -->
+  <input name="cat_rental_request[end_date]" id="cat_rental_request_end_date" type="date"
+   value="<%=@cat_rental_request.end_date %>"</input>

@@ -4,5 +4,5 @@ class Cat < ActiveRecord::Base
   validates :color, inclusion: { in: %w(black brown white tabby blue) }
   validates :sex, inclusion: { in: %w(M F) }
 
-  has_many :cat_rental_requests
+  has_many :cat_rental_requests, dependent: :destroy
 end

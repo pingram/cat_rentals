@@ -3,4 +3,6 @@ class Cat < ActiveRecord::Base
   validates :age, numericality: { only_integer: true }
   validates :color, inclusion: { in: %w(black brown white tabby blue) }
   validates :sex, inclusion: { in: %w(M F) }
+
+  has_many :cat_rental_requests
 end

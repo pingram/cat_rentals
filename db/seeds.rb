@@ -8,3 +8,22 @@
                 sex: %w(M F).sample
               )
 end
+
+cr1 = CatRentalRequest.create!(
+                              cat_id: 1,
+                              start_date: Date.new(2014, 1, 1),
+                              end_date: Date.new(2015, 1, 1),
+                              status: "APPROVED"
+)
+cr2 = CatRentalRequest.create!(
+                              cat_id: 2,
+                              start_date: Date.new(2014, 2, 1),
+                              end_date: Date.new(2015, 3, 1),
+                              status: "PENDING"
+)
+cr3 = CatRentalRequest.create!(
+                              cat_id: 1,
+                              start_date: Date.new(2013, 2, 1),
+                              end_date: Date.new(2013, 3, 1),
+                              status: "APPROVED"
+)

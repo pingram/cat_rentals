@@ -6,16 +6,22 @@ class CatRentalRequest < ActiveRecord::Base
   belongs_to :cat
 
   def approve!
-    self.status = "APPROVED"
-    self.save!
+    ActiveRecord::Base.transaction do
+      self.status = "APPROVED"
+      self.save!
 
-    #update all the pending requests that are no longer valid
-    CatRentalRequest.all.each do |crr|
-      unless crr.valid?
-        crr.status = "DENIED"
-        crr.save!
+      #update all the pending requests that are no longer valid
+      CatRentalRequest.all.each do |crr|
+        unless crr.valid?
+          crr.deny!
+        end
       end
     end
+  end
+
+  def deny!
+    self.status = "DENIED"
+    self.save!
   end
 
   def overlapping_requests

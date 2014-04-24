@@ -8,14 +8,22 @@ class CatRentalRequestsController < ApplicationController
 
 
 
-  # def create
-  #   @cat_rental_request = CatRentalRequest.new(cat_params)
-  #   if @cat_rental_request.save
-  #     redirect_to cat_url(@cat_rental_request)
-  #   else
-  #     # flash[:errors] = @cat.errors.full_messages
-  #     redirect_to new_cat_url#, alert: "You're stuck here!"
-  #   end
-  # end
+  def create
+    @cat_rental_request = CatRentalRequest.new(crf_params)
+    if @cat_rental_request.save
+      redirect_to cats_url
+    else
+      redirect_to new_cat_request_form_url
+    end
+  end
+
+  private
+
+  def crf_params
+    params.require(:cat_rental_request).permit(:start_date,
+                                              :end_date,
+                                              :cat_id,
+                                              :status)
+  end
 
 end

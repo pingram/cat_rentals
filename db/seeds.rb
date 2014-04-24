@@ -29,7 +29,7 @@ cr3 = CatRentalRequest.create!(
 )
 cr4 = CatRentalRequest.create!(
                               cat_id: 1,
-                              start_date: Date.new(2014, 2, 1),
-                              end_date: Date.new(2014, 3, 1),
+                              start_date: Date.new(2014, 2, 15),
+                              end_date: Date.new(2014, 3, 15),
                               status: "PENDING"
 )

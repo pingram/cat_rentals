@@ -1,7 +1,7 @@
 class CatRentalRequest < ActiveRecord::Base
   validates :cat_id, :start_date, :end_date, :status, presence: true
   validates :status, inclusion: { in: %w(PENDING APPROVED DENIED)}
-  validate :overlapping_requests
+  validate :overlapping_approved_requests
 
   belongs_to :cat
 
@@ -29,8 +29,11 @@ class CatRentalRequest < ActiveRecord::Base
   end
 
   def overlapping_approved_requests
-    if overlapping_approved_requests.count > 0
-      errors[:start_date] << "can't have overlapping dates"
+    new_oar = overlapping_requests.select do |request|
+      request.status == "APPROVED" && request.id != self.id
+    end
+    if new_oar.count > 0
+      errors[:start_date] << "the cat is already reserved for that date"
     end
   end
 end

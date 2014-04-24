@@ -5,17 +5,12 @@ class CatRentalRequest < ActiveRecord::Base
 
   belongs_to :cat
 
-
-
-  def overlapping_requests
-    overlappers = overlapping_approved_requests
-    if overlapping_approved_requests.count > 0
-      errors[:start_date] << "can't have overlapping dates"
-    end
-
+  def approve!
+    self.status = "APPROVED"
+    self.save
   end
 
-  def overlapping_approved_requests
+  def overlapping_requests
     query = <<-SQL
       SELECT
         cr1.*
@@ -24,7 +19,6 @@ class CatRentalRequest < ActiveRecord::Base
       WHERE
         (? BETWEEN cr1.start_date AND cr1.end_date OR
         ? BETWEEN cr1.start_date AND cr1.end_date) AND
-        cr1.status = 'APPROVED' AND
         ? = cr1.cat_id
     SQL
 
@@ -32,5 +26,11 @@ class CatRentalRequest < ActiveRecord::Base
                                   self.start_date.to_s,
                                   self.end_date.to_s,
                                   self.cat_id])
+  end
+
+  def overlapping_approved_requests
+    if overlapping_approved_requests.count > 0
+      errors[:start_date] << "can't have overlapping dates"
+    end
   end
 end
